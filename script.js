@@ -95,6 +95,44 @@ if ('serviceWorker' in navigator) {
     showCachedData();
   });
   
+
+// Verifica se a API Permission é suportada pelo navegador
+if ('permissions' in navigator) {
+    // Solicita permissão de câmera
+    navigator.permissions.query({ name: 'camera' })
+      .then(function(permissionStatus) {
+        if (permissionStatus.state === 'granted') {
+          // Permissão já concedida
+          openCamera();
+        } else if (permissionStatus.state === 'prompt') {
+          // A permissão ainda não foi concedida, exibe um botão para solicitar permissão
+          var permissionButton = document.getElementById('permissionButton');
+          permissionButton.style.display = 'block';
+          permissionButton.addEventListener('click', function() {
+            // Solicita permissão de câmera novamente
+            navigator.permissions.request({ name: 'camera' })
+              .then(function(newPermissionStatus) {
+                if (newPermissionStatus.state === 'granted') {
+                  // Permissão concedida
+                  openCamera();
+                } else {
+                  // Permissão negada
+                  console.log('A permissão de câmera foi negada pelo usuário.');
+                }
+              });
+          });
+        } else {
+          // A permissão foi negada
+          console.log('A permissão de câmera foi negada pelo usuário.');
+        }
+      })
+      .catch(function(error) {
+        console.log('Erro ao verificar a permissão de câmera:', error);
+      });
+  } else {
+    console.log('A API Permission não é suportada neste navegador.');
+  }
+
   // Função para abrir a câmera do usuário
   // Dentro da função openCamera()
 function openCamera() {
