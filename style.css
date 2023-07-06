@@ -6,4 +6,29 @@ body {
 
 #status {
     font-size: 24px;
+    margin-bottom: 50px;
 }
+
+.input-item {
+    margin: 0 auto 30px 0;
+}
+
+label, input {
+    display: block;
+    margin: 10px auto;
+}
+
+button {
+    background: #147aa9;
+    color: #fff;
+    padding: 7px 20px;
+    border: none;
+}
+
+#message {
+    padding: 20px;
+    border: 2px solid #147aa9;
+    width: fit-content;
+    margin: 50px auto;
+}
+

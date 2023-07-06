@@ -14,6 +14,7 @@ if ('serviceWorker' in navigator) {
   var textInput = document.getElementById('text');
   var saveBtn = document.getElementById('saveBtn');
   var messageElement = document.getElementById('message');
+  var infoElement = document.getElementById('info');
   
   fileInput.addEventListener('change', function(event) {
     var file = event.target.files[0];
@@ -67,20 +68,29 @@ if ('serviceWorker' in navigator) {
       } else {
         messageElement.textContent = "Você está offline, assim que estiver online os dados podem ser enviados.";
       }
-      alert("Arquivo selecionado: " + selectedFile + "\nTexto digitado: " + inputText);
+  
+      infoElement.innerHTML = ""; // Limpa o conteúdo existente
+  
+        var infoContent = document.createElement('div');
+        infoContent.innerHTML = "Arquivo selecionado: " + selectedFile + "<br><br>Texto digitado: " + inputText;
+
+
+      infoElement.appendChild(infoContent);
     }
   }
   
   saveBtn.addEventListener('click', function() {
     var selectedFile = localStorage.getItem('selectedFile');
     var inputText = localStorage.getItem('inputText');
-  
+    
     if (selectedFile && inputText) {
       if (navigator.onLine) {
-        messageElement.textContent = "Os dados podem ser enviados.";
+        messageElement.textContent = "Você está online, os dados podem ser enviados.";
       } else {
         messageElement.textContent = "Você está offline, assim que estiver online os dados podem ser enviados.";
       }
     }
+  
+    showCachedData();
   });
   
