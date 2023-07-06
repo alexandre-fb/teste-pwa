@@ -13,13 +13,20 @@
     <label for="file">Escolher arquivo:</label>
     <input type="file" name="file" id="file">
 
+    <button onclick="openCamera()">Abrir Câmera</button>
+    <div id="cameraPreview"></div>
+    <button id="captureButton" onclick="captureImage()">Capturar Imagem</button>
+    
+
     <label for="text">Escreva um texto:</label>
     <input type="text" name="text" id="text">
 
     <button id="saveBtn">Salvar</button>
 
     <div id="message"></div>
-    <div id="info"></div>
+    <div id="imagePreview"></div>
+    <div id="info">
+    </div>
 
     <script src="script.js"></script>
 </body>

@@ -83,7 +83,7 @@ if ('serviceWorker' in navigator) {
   saveBtn.addEventListener('click', function() {
     var selectedFile = localStorage.getItem('selectedFile');
     var inputText = localStorage.getItem('inputText');
-    
+  
     if (selectedFile && inputText) {
       if (navigator.onLine) {
         messageElement.textContent = "Você está online, os dados podem ser enviados.";
@@ -94,4 +94,70 @@ if ('serviceWorker' in navigator) {
   
     showCachedData();
   });
+  
+  // Função para abrir a câmera do usuário
+  // Dentro da função openCamera()
+function openCamera() {
+    if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+          var cameraPreview = document.getElementById('cameraPreview');
+          cameraPreview.innerHTML = '<video id="cameraVideo" autoplay></video>';
+  
+          var videoElement = document.getElementById('cameraVideo');
+          videoElement.srcObject = stream;
+        })
+        .catch(function(error) {
+          console.log('Erro ao acessar a câmera:', error);
+        });
+    } else {
+      console.log('A câmera não é suportada neste dispositivo.');
+    }
+  }
+
+
+  function captureImage() {
+    if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+          var cameraPreview = document.getElementById('cameraPreview');
+          cameraPreview.innerHTML = '<video id="cameraVideo" autoplay></video>';
+  
+          var videoElement = document.getElementById('cameraVideo');
+          videoElement.srcObject = stream;
+  
+          var canvas = document.createElement('canvas');
+          var context = canvas.getContext('2d');
+  
+          videoElement.addEventListener('loadedmetadata', function() {
+            canvas.width = videoElement.videoWidth;
+            canvas.height = videoElement.videoHeight;
+  
+            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+  
+            canvas.toBlob(function(blob) {
+              var imageUrl = URL.createObjectURL(blob);
+              console.log('imageUrl', imageUrl)
+              localStorage.setItem('capturedImage', imageUrl);
+              console.log('Imagem capturada e salva no cache.');
+  
+              var imagePreview = document.getElementById('imagePreview');
+            //   imagePreview.innerHTML = ''; // Limpa o conteúdo existente
+  
+              var imageElement = document.createElement('img');
+              imageElement.src = imageUrl;
+              imagePreview.appendChild(imageElement);
+            }, 'image/jpeg', 0.8);
+          });
+        })
+        .catch(function(error) {
+          console.log('Erro ao acessar a câmera:', error);
+        });
+    } else {
+      console.log('A câmera não é suportada neste dispositivo.');
+    }
+  }
+  
+
+
   
