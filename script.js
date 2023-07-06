@@ -27,3 +27,36 @@ window.addEventListener('load', function() {
     // Verificar o estado de conexão ao carregar a página
     handleConnectionChange();
 });
+
+//trata inputs
+var fileInput = document.getElementById('file');
+var textInput = document.getElementById('text');
+
+fileInput.addEventListener('change', function(event) {
+  var file = event.target.files[0];
+  localStorage.setItem('selectedFile', file.name);
+});
+
+textInput.addEventListener('input', function(event) {
+  var text = event.target.value;
+  localStorage.setItem('inputText', text);
+});
+
+window.addEventListener('load', function() {
+    if (navigator.onLine) {
+      showCachedData();
+    } else {
+      window.addEventListener('online', showCachedData);
+    }
+  });
+  
+  function showCachedData() {
+    var selectedFile = localStorage.getItem('selectedFile');
+    var inputText = localStorage.getItem('inputText');
+    
+    if (selectedFile && inputText) {
+      alert("Arquivo selecionado: " + selectedFile + "\nTexto digitado: " + inputText);
+    }
+  }
+  
+
