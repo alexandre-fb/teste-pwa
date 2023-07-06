@@ -1,16 +1,16 @@
 {
-    "name": "Meu PWA",
-    "short_name": "Meu PWA",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#ffffff",
-    "icons": [
-      {
-        "src": "/icons/icon_512.png",
-        "sizes": "512x512",
-        "type": "image/png"
-      }
-    ]
+  "name": "Meu PWA",
+  "short_name": "Meu PWA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/icons/icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "version": "1.1.0"
 }
-  
