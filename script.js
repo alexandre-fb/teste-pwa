@@ -12,6 +12,8 @@ if ('serviceWorker' in navigator) {
   
   var fileInput = document.getElementById('file');
   var textInput = document.getElementById('text');
+  var saveBtn = document.getElementById('saveBtn');
+  var messageElement = document.getElementById('message');
   
   fileInput.addEventListener('change', function(event) {
     var file = event.target.files[0];
@@ -43,8 +45,14 @@ if ('serviceWorker' in navigator) {
   }
   
   window.addEventListener('load', function() {
-    window.addEventListener('online', handleConnectionChange);
-    window.addEventListener('offline', handleConnectionChange);
+    window.addEventListener('online', function() {
+      handleConnectionChange();
+      alert("Você ficou online e os dados podem ser enviados.");
+    });
+    window.addEventListener('offline', function() {
+      handleConnectionChange();
+      alert("Você ficou offline, os dados carregados só poderão ser enviados quando estiver online.");
+    });
   
     handleConnectionChange();
   });
@@ -54,7 +62,25 @@ if ('serviceWorker' in navigator) {
     var inputText = localStorage.getItem('inputText');
   
     if (selectedFile && inputText) {
+      if (navigator.onLine) {
+        messageElement.textContent = "Os dados podem ser enviados.";
+      } else {
+        messageElement.textContent = "Você está offline, assim que estiver online os dados podem ser enviados.";
+      }
       alert("Arquivo selecionado: " + selectedFile + "\nTexto digitado: " + inputText);
     }
   }
+  
+  saveBtn.addEventListener('click', function() {
+    var selectedFile = localStorage.getItem('selectedFile');
+    var inputText = localStorage.getItem('inputText');
+  
+    if (selectedFile && inputText) {
+      if (navigator.onLine) {
+        messageElement.textContent = "Os dados podem ser enviados.";
+      } else {
+        messageElement.textContent = "Você está offline, assim que estiver online os dados podem ser enviados.";
+      }
+    }
+  });
   
