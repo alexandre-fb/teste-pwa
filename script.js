@@ -64,7 +64,7 @@ if ('serviceWorker' in navigator) {
   
     if (selectedFile && inputText) {
       if (navigator.onLine) {
-        messageElement.textContent = "Os dados podem ser enviados.";
+        messageElement.textContent = "Está online, os dados podem ser enviados.";
       } else {
         messageElement.textContent = "Você está offline, assim que estiver online os dados podem ser enviados.";
       }
