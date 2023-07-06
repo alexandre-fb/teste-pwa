@@ -37,9 +37,11 @@ if ('serviceWorker' in navigator) {
     if (navigator.onLine) {
       status = 'Estou online';
       showCachedData();
+      messageElement.classList.remove('offline');
     } else {
       status = 'Estou offline';
       showCachedData();
+      messageElement.classList.add('offline');
     }
   
     setStatus(status);
@@ -66,15 +68,14 @@ if ('serviceWorker' in navigator) {
       if (navigator.onLine) {
         messageElement.textContent = "Está online, os dados podem ser enviados.";
       } else {
-        messageElement.textContent = "Você está offline, assim que estiver online os dados podem ser enviados.";
+        messageElement.textContent = "Você está offline, assim que estiver online os dados podem ser enviados. Mas ainda pode selecionar arquivo e escrever que ficará armazenado no cache.";
       }
   
       infoElement.innerHTML = ""; // Limpa o conteúdo existente
   
-        var infoContent = document.createElement('div');
-        infoContent.innerHTML = "Arquivo selecionado: " + selectedFile + "<br><br>Texto digitado: " + inputText;
-
-
+      var infoContent = document.createElement('div');
+      infoContent.innerHTML = "Arquivo selecionado: " + selectedFile + "<br><br>Texto digitado: " + inputText;
+  
       infoElement.appendChild(infoContent);
     }
   }
@@ -87,7 +88,7 @@ if ('serviceWorker' in navigator) {
       if (navigator.onLine) {
         messageElement.textContent = "Você está online, os dados podem ser enviados.";
       } else {
-        messageElement.textContent = "Você está offline, assim que estiver online os dados podem ser enviados.";
+        messageElement.textContent = "Você está offline, assim que estiver online os dados podem ser enviados. Mas ainda pode selecionar arquivo e escrever que ficará armazenado no cache.";
       }
     }
   

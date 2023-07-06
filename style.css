@@ -32,3 +32,7 @@ button {
     margin: 50px auto;
 }
 
+.offline {
+    color: darkred;
+  }
+  
